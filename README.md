@@ -1,7 +1,20 @@
-# Cluster Automation
+# Ansible-HDP-Automation
+
+Deploying Ambari-HDP Cluster using Ansible and Ambari Blueprints
 
 
-This repository contains the below
-* [Ansible-HDP-Automation](Ansible-HDP-Automation/) - Deploying Ambari-HDP Cluster using Ansible and Ambari Blueprints
-* [Continuous_Integration_Cloudera_Hadoop](Continuous_Integration_Cloudera_Hadoop) - Continuous Integration Scripts to Compare and Push configurations of CDH Clusters
-* [Basic_Start_Stop_Cluster](Basic_Start_Stop_Cluster/) - Basic Scripts to Start and Stop HDP-CDH Cluster's and ILO Servers using Rest API
+### Components Used
+- Ansible
+- Ambari Blueprints
+
+#### Demo Flow
+![Demo Flow](Images/Setup.png)
+
+#### Ansible Playbook Execution Flow
+![Ansible Playbook Execution Flow](Images/Playbook_Flow.png)
+
+#### System Prerequisites Flow
+![System Prerequisites](Images/Prerequisites.png)
+
+#### Setting up HDP Cluster using Rest API - Ambari Blusprints
+![Setting up HDP Cluster using Rest API](Images/Setting_up_HDP.png)
