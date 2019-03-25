@@ -1,0 +1,37 @@
+{
+	"blueprint" : "HDF",
+	"default_password" : "{{ default_password }}",
+	"host_groups" : [
+		{
+			  "name" : "host_group_1",
+			  "hosts" : [
+{% for host in groups['master1'] %}
+     				{
+				  		"fqdn" : "{{ host }}"
+     				},{% endfor %}]
+		},
+		{
+			  "name" : "host_group_2",
+			  "hosts" : [
+{% for host in groups['master2'] %}
+     				{
+				  		"fqdn" : "{{ host }}"
+     				},{% endfor %}]
+		},
+		{
+			  "name" : "host_group_3",
+			  "hosts" : [
+{% for host in groups['master3'] %}
+     				{
+				  		"fqdn" : "{{ host }}"
+     				},{% endfor %}]
+		}
+	],
+	"configurations" : [
+			{
+			    "nifi-ambari-config": {
+			       "nifi.security.encrypt.configuration.password": "{{ NiFi_Encrypt_Configuration_Master_Key_Password }}"
+			    }
+		  }
+	]
+}

@@ -1,0 +1,29 @@
+---
+
+- name: "Copy Cluster Configuration Blueprint"
+  copy: src=Blueprint.json dest=/tmp/Blueprint.json
+
+
+- name: "Copy Blueprint Templates"
+  template: src={{ item.name }} dest=/tmp/{{ item.dest }}
+  with_items:
+    - { name: 'Host_Mapping.json.j2', dest: 'Host_Mapping.json' }
+  tags:
+    - Host Template File
+
+- name: "Replacing Extra Commas in Host_Mapping.json"
+  replace:
+    path: /tmp/Host_Mapping.json
+    regexp: '},]'
+    replace: '}]'
+    backup: yes
+
+
+- name: Register Stack Definition with ambari server by executing below command
+  shell: |
+        curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://{{ groups["ambari_node"][0] }}:8080/api/v1/blueprints/{{ blueprint_name }} -d @/tmp/Blueprint.json
+
+- name: Starting HDF cluster Installation using Component Layout
+  shell: |
+        curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://{{ groups["ambari_node"][0] }}:8080/api/v1/clusters/{{ cluster_name }} -d @/tmp/Host_Mapping.json
+# curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://hdf-1.field.hortonworks.com:8080/api/v1/clusters/HDF_Cluster -d @/tmp/Host_Mapping.json
